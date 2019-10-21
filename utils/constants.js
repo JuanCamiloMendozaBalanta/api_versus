@@ -36,3 +36,7 @@ const ROLES = [
         code: 'ST'
     }
 ]
+
+module.exports = {
+    ROLES
+}
