@@ -9,7 +9,8 @@ let userShema = new Schema({
     },
     email: {
         type: String,
-        required: [true, 'email is necesary']
+        required: [true, 'email is necesary'],
+        unique: true
     },
     middlename: {
         type: String,
@@ -21,7 +22,8 @@ let userShema = new Schema({
     },
     username: {
         type: String,
-        required: [true, 'username is necesary']
+        required: [true, 'username is necesary'],
+        unique: true
     },
     role: {
         type: String,

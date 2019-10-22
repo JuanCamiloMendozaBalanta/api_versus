@@ -16,12 +16,12 @@ const saveUser = async (info) => {
 
 }
 
-const getUserById = async (info) => {
-
+const findUserByEmail = async (email) => {
+    return await User.find({ email })
 }
 
 
 module.exports = {
     saveUser,
-    getUserById
+    findUserByEmail
 }

@@ -4,17 +4,7 @@ const app = express()
 const { createUser } = require('./user.controller')
 
 app.get('/user', (req, res) => {
-    console.log('===>', req.body)
-    const user = createUser(req.body)
-    if (user._id) {
-        res
-            .status(200)
-            .json(user)
-    } else {
-        res
-            .status(500)
-            .json(user)
-    }
+
 })
 
 app.get('/user/:id', (req, res) => {
@@ -26,6 +16,7 @@ app.get('/user/:id', (req, res) => {
 app.post('/user', (req, res) => {
     console.log('===>', req.body)
     const user = createUser(req.body)
+    console.log('===>', user)
     if (user._id) {
         res
             .status(200)
