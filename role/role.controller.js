@@ -1,21 +1,34 @@
 const { ROLES } = require('../utils/constants')
 const { manageError } = require('../utils/errors')
 
-const getRoles = (request, reply) => {
+const getRoles = () => {
+    let response
+    try {
+        response = {
+            roles: ROLES.length > 0 ? ROLES : []
+        };
+    } catch (error) {
+        manageError(error)
+        return error
+    }
+    return response
+}
+
+const getRolesByCode = (code) => {
+    let response
     try {
         if (ROLES.length > 0) {
-            return ROLES;
-        } else {
-            reply({
-                message: `We don't have roles`
-            })
+            const role = ROLES.find(ele => ele.code === code);
+            response = role ? role : null
         }
     } catch (error) {
         manageError(error)
         return error
     }
+    return response
 }
 
 module.exports = {
-    getRoles
+    getRoles,
+    getRolesByCode
 }
