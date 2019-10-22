@@ -6,7 +6,11 @@ const { port, shema, host, db_port } = require('./configuration/config')
 
 const app = express()
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 app.use(require('./role/role.routes'))
+app.use(require('./user/user.routes'))
 
 const db = `mongodb://${host}:${db_port}/${shema}`
 

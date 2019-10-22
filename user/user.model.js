@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema
 
 let userShema = new Schema({
+    dateOfBirth: {
+        type: Date,
+        required: [false, 'date of birth is necesary']
+    },
     email: {
         type: String,
         required: [true, 'email is necesary']

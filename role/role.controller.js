@@ -4,9 +4,7 @@ const { manageError } = require('../utils/errors')
 const getRoles = () => {
     let response
     try {
-        response = {
-            roles: ROLES.length > 0 ? ROLES : []
-        };
+        response = ROLES.length > 0 ? ROLES : []
     } catch (error) {
         manageError(error)
         return error
