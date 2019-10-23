@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema
 
 let userShema = new Schema({
+    active: {
+        type: Boolean,
+        required: [true, 'active is necesary']
+    },
     dateOfBirth: {
         type: Date,
         required: [false, 'date of birth is necesary']
@@ -31,4 +35,4 @@ let userShema = new Schema({
     },
 })
 
-module.exports = mongoose.model('user', userShema)
+module.exports = mongoose.model('users', userShema)

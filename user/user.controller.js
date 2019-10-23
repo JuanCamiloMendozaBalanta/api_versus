@@ -1,23 +1,32 @@
 
-const { saveUser, findUserByEmail } = require('./user.controller')
+const { findUsers, findUserByEmail, saveUser } = require('./user.services')
 
-const createUser = (info) => {
+const createUser = async (info) => {
     try {
         const { email } = info
-        const user = findUserByEmail(email)
-        if (user) {
+        const user = await findUserByEmail(email)
+        if (user && user.id) {
 
         } else {
-            return saveUser(info)
+            const newUser = await saveUser(info)
+            return newUser
         }
     } catch (error) {
         return error
     }
 }
 
-const getUserByEmail = (email) => {
+const getUsers = async () => {
     try {
-        return findUserByEmail(email)
+        return await findUsers()
+    } catch (error) {
+        return error
+    }
+}
+
+const getUserByEmail = async (email) => {
+    try {
+        return await findUserByEmail(email)
     } catch (error) {
         return error
     }
@@ -25,5 +34,6 @@ const getUserByEmail = (email) => {
 
 module.exports = {
     createUser,
+    getUsers,
     getUserByEmail
 }

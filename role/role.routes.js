@@ -17,7 +17,7 @@ app.get('/role/:code', (req, res) => {
             .json(role)
     } else {
         res
-            .status(400)
+            .status(404)
             .json(role)
     }
 })

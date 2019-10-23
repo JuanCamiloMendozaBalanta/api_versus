@@ -14,7 +14,7 @@ app.use(require('./user/user.routes'))
 
 const db = `mongodb://${host}:${db_port}/${shema}`
 
-mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
 
 
 app.listen(port, () => {
