@@ -31,7 +31,16 @@ const saveUser = async (info) => {
     }
 }
 
+const editUser = async (info) => {
+    try {
+        const { id, active, dateOfBirth, email, middlename, name, username, role } = info
+    } catch (error) {
+        return error
+    }
+}
+
 module.exports = {
+    editUser,
     findUsers,
     findUserByEmail,
     saveUser

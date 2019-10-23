@@ -1,16 +1,24 @@
 
 const { findUsers, findUserByEmail, saveUser } = require('./user.services')
+const { getRolesByCode } = require('./../role/role.controller')
 
 const createUser = async (info) => {
     try {
-        const { email } = info
-        const user = await findUserByEmail(email)
-        if (user && user.id) {
-
+        let response
+        const { email, role } = info
+        const _role = getRolesByCode(role)
+        if (_role) {
+            const user = await findUserByEmail(email)
+            if (!user) {
+                const newUser = await saveUser(info)
+                response = newUser
+            } else {
+                response = `The user with the email ${email} already exist`
+            }
         } else {
-            const newUser = await saveUser(info)
-            return newUser
+            response = `The role ${role} doesnt's exist`
         }
+        return response
     } catch (error) {
         return error
     }

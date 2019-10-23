@@ -32,7 +32,7 @@ app.get('/user/:email', async (req, res) => {
 
 app.post('/user', async (req, res) => {
     const user = await createUser(req.body)
-    if (user.id) {
+    if (user && user.id) {
         res
             .status(200)
             .json(user)

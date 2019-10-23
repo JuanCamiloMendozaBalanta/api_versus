@@ -8,8 +8,7 @@ let userShema = new Schema({
         required: [true, 'active is necesary']
     },
     dateOfBirth: {
-        type: Date,
-        required: [false, 'date of birth is necesary']
+        type: Date
     },
     email: {
         type: String,
@@ -23,6 +22,9 @@ let userShema = new Schema({
     name: {
         type: String,
         required: [true, 'name is necesary']
+    },
+    phone: {
+        type: Number
     },
     username: {
         type: String,

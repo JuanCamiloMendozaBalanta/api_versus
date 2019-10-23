@@ -26,6 +26,7 @@ const getRolesByCode = (code) => {
 
 }
 
+
 module.exports = {
     getRoles,
     getRolesByCode
