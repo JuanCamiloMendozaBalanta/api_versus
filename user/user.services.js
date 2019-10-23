@@ -34,6 +34,7 @@ const saveUser = async (info) => {
 const editUser = async (info) => {
     try {
         const { id, active, dateOfBirth, email, middlename, name, username, role } = info
+        const user = await User.update({ _id: id }, {})
     } catch (error) {
         return error
     }
