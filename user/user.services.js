@@ -9,6 +9,14 @@ const findUserByEmail = async (email) => {
     }
 }
 
+const findUserById = async (id) => {
+    try {
+        return await User.findOne({ _id: id })
+    } catch (error) {
+        return error
+    }
+}
+
 const findUsers = async () => {
     try {
         return await User.find()
@@ -31,10 +39,10 @@ const saveUser = async (info) => {
     }
 }
 
-const editUser = async (info) => {
+const editUser = async (id, info) => {
     try {
-        const { id, active, dateOfBirth, email, middlename, name, username, role } = info
-        const user = await User.update({ _id: id }, {})
+        const response = await User.updateOne({ _id: id }, { $set: info })
+        return response
     } catch (error) {
         return error
     }
@@ -44,5 +52,6 @@ module.exports = {
     editUser,
     findUsers,
     findUserByEmail,
+    findUserById,
     saveUser
 }

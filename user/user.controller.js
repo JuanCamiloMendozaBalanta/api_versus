@@ -1,6 +1,7 @@
 
-const { findUsers, findUserByEmail, saveUser } = require('./user.services')
+const { editUser, findUsers, findUserByEmail, findUserById, saveUser } = require('./user.services')
 const { getRolesByCode } = require('./../role/role.controller')
+const { removeEmptyOrNull } = require('./../utils/gadgets')
 
 const createUser = async (info) => {
     try {
@@ -40,8 +41,26 @@ const getUserByEmail = async (email) => {
     }
 }
 
+const updateUser = async (id, info) => {
+    let response
+    try {
+        const cleanInfo = removeEmptyOrNull(info)
+        const update = await editUser(id, cleanInfo)
+        if (update.ok) {
+            return response = await findUserById(id)
+        }
+        //else {
+        //     response = `Error try to update the user with id: ${id}`
+        // }
+        // return response
+    } catch (error) {
+        return error
+    }
+}
+
 module.exports = {
     createUser,
     getUsers,
-    getUserByEmail
+    getUserByEmail,
+    updateUser
 }
