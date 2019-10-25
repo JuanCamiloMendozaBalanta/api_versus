@@ -1,5 +1,5 @@
 
-const User = require('./user.model')
+const User = require('./team.model')
 
 const findUserByEmail = async (email) => {
     try {
@@ -19,7 +19,7 @@ const findUserById = async (id) => {
 
 const findUsers = async () => {
     try {
-        return await User.find()
+        return await User.find({ active: true })
     } catch (error) {
         return error
     }
@@ -27,9 +27,9 @@ const findUsers = async () => {
 
 const saveUser = async (info) => {
     try {
-        const { active, dateOfBirth, email, middlename, name, username, role } = info
+        const { active, dateOfBirth, email, google, lastname, name, password, phone, username, role } = info
         const newUser = new User({
-            active, dateOfBirth, email, middlename, name, username, role
+            active, dateOfBirth, email, google, lastname, name, password, phone, username, role
         })
         const user = await newUser.save()
         return user

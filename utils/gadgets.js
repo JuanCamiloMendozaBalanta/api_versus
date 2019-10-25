@@ -6,6 +6,11 @@ const removeEmptyOrNull = (obj) => {
     return obj;
 };
 
+const objectIsEmpty = (obj) => {
+    return Object.keys(obj).length === 0;
+}
+
 module.exports = {
+    objectIsEmpty,
     removeEmptyOrNull
 }

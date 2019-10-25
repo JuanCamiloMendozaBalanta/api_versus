@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use(require('./role/role.routes'))
-app.use(require('./user/user.routes'))
+app.use(require('./player/player.routes'))
 
 const db = `mongodb://${host}:${db_port}/${shema}`
 
