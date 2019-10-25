@@ -1,60 +1,46 @@
 
-const { editUser, findUsers, findUserByEmail, findUserById, saveUser } = require('./user.services')
-const { getRolesByCode } = require('../role/role.controller')
+const { editTeam, findTeams, findTeamByEmail, findTeamById, saveTeam } = require('./team.services')
 const { objectIsEmpty, removeEmptyOrNull } = require('../utils/gadgets')
 
-const createUser = async (info) => {
+const createTeam = async (info) => {
     try {
-        let response
-        const { email, role } = info
-        const _role = getRolesByCode(role)
-        if (_role) {
-            const user = await findUserByEmail(email)
-            if (!user) {
-                const newUser = await saveUser(info)
-                response = newUser
-            } else {
-                response = `The user with the email ${email} already exist`
-            }
-        } else {
-            response = `The role ${role} doesnt's exist`
-        }
+        let response = await saveTeam(info)
         return response
     } catch (error) {
         return error
     }
 }
 
-const getUsers = async () => {
+const getTeams = async () => {
     try {
-        return await findUsers()
+        return await findTeams()
     } catch (error) {
         return error
     }
 }
 
-const getUserByEmail = async (email) => {
+const getTeamByName = async (email) => {
     try {
-        return await findUserByEmail(email)
+        return await findTeamByEmail(email)
     } catch (error) {
         return error
     }
 }
 
-const updateUser = async (id, info) => {
+const updateTeam = async (id, info) => {
     let response
     try {
         const cleanInfo = removeEmptyOrNull(info)
-        const update = await editUser(id, cleanInfo)
+        const update = await editTeam(id, cleanInfo)
         if (!objectIsEmpty(cleanInfo)) {
             if (update.ok) {
-                return response = await findUserById(id)
+                return response = await findTeamById(id)
             }
             else {
-                response = `Error try to update the user with id: ${id}, meaby the user doesn't exist`
+                response = `Error try to update the team with id: ${id}, meaby the team doesn't exist`
             }
         } else {
-            response = `The parameters to update the user can't be empty`
+            response = `The parameters to update the team can't be empty`
         }
         return response
     } catch (error) {
@@ -63,8 +49,8 @@ const updateUser = async (id, info) => {
 }
 
 module.exports = {
-    createUser,
-    getUsers,
-    getUserByEmail,
-    updateUser
+    createTeam,
+    getTeams,
+    getTeamByName,
+    updateTeam
 }

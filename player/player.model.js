@@ -44,6 +44,10 @@ let playerShema = new Schema({
         type: String,
         required: [true, 'role is necesary']
     },
+    teams: [{
+        id: String,
+        name: String
+    }]
 })
 
 module.exports = mongoose.model('players', playerShema)

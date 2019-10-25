@@ -20,10 +20,10 @@ let userShema = new Schema({
         required: [true, 'phone is necesary'],
         unique: true
     },
-    players: {
-        type: String,
-        required: [true, 'role is necesary']
-    },
+    players: [{
+        id: String,
+        username: String
+    }]
 })
 
 module.exports = mongoose.model('users', userShema)
