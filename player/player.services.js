@@ -1,52 +1,72 @@
+const Player = require('./player.model');
 
-const Player = require('./player.model')
-
-const findPlayerByEmail = async (email) => {
+const findPlayerByEmail = async email => {
     try {
-        return await Player.findOne({ email })
+        return await Player.findOne({ email });
     } catch (error) {
-        return error
+        return error;
     }
-}
+};
 
-const findPlayerById = async (id) => {
+const findPlayerById = async id => {
     try {
-        return await Player.findOne({ _id: id })
+        return await Player.findOne({ _id: id });
     } catch (error) {
-        return error
+        return error;
     }
-}
+};
 
 const findPlayers = async () => {
     try {
-        return await Player.find({ active: true })
+        return await Player.find({ active: true });
     } catch (error) {
-        return error
+        return error;
     }
-}
+};
 
-const savePlayer = async (info) => {
+const savePlayer = async info => {
     try {
-        const { active, dateOfBirth, email, google, lastname, name, password, phone, username, role } = info
+        const {
+            active,
+            dateOfBirth,
+            email,
+            google = google ? google : false,
+            lastname,
+            name,
+            password,
+            phone,
+            username,
+            role,
+            teams = teams ? teams : []
+        } = info;
         const newPlayer = new Player({
-            active, dateOfBirth, email, google, lastname, name, password, phone, username, role
-        })
-        const player = await newPlayer.save()
-        return player
-
+            active,
+            dateOfBirth,
+            email,
+            google,
+            lastname,
+            name,
+            password,
+            phone,
+            username,
+            role,
+            teams
+        });
+        const player = await newPlayer.save();
+        return player;
     } catch (error) {
-        return error
+        return error;
     }
-}
+};
 
 const editPlayer = async (id, info) => {
     try {
-        const response = await Player.updateOne({ _id: id }, { $set: info })
-        return response
+        const response = await Player.updateOne({ _id: id }, { $set: info });
+        return response;
     } catch (error) {
-        return error
+        return error;
     }
-}
+};
 
 module.exports = {
     editPlayer,
@@ -54,4 +74,4 @@ module.exports = {
     findPlayerByEmail,
     findPlayerById,
     savePlayer
-}
+};
