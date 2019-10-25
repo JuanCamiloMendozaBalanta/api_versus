@@ -37,7 +37,7 @@ let playerShema = new Schema({
     trim: true
   },
   phone: {
-    type: Number,
+    type: String,
     required: [true, 'phone is necesary'],
     unique: true
   },

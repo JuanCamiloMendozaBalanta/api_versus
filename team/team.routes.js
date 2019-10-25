@@ -24,7 +24,6 @@ app.get('/team/:name', async (req, res) => {
 
 app.post('/team', async (req, res) => {
   const team = await createTeam(req.body);
-  IN;
   if (team && team.id) {
     res.status(200).json(team);
   } else {
