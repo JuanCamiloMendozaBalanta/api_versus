@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
 
+const Team = require('../team/team.model');
+
 let playerShema = new Schema({
   active: {
     type: Boolean,
@@ -53,7 +55,7 @@ let playerShema = new Schema({
     required: [true, 'role is necesary'],
     trim: true
   },
-  teams: []
+  teams: [{ type: Schema.ObjectId, ref: Team }]
 });
 
 module.exports = mongoose.model('players', playerShema);

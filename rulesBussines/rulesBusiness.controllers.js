@@ -12,8 +12,7 @@ const hirePlayer = async (idPlayer, idTeam) => {
     const myTeam = await findTeamById(idTeam);
     let newPlayers = myTeam.players;
 
-    console.log('===>', newTeams.include({ id: idTeam }), newPlayers);
-    if (newTeams.include(idTeam) || newPlayers.include(idPlayer)) {
+    if (validateIsPlayerAndTeamAreLikend(idPlayer, newPlayers, idTeam, newTeams)) {
       response = `Team ${idTeam} and player ${idPlayer} already be linked`;
     } else {
       newTeams.push(idTeam);
@@ -36,6 +35,14 @@ const hirePlayer = async (idPlayer, idTeam) => {
   } catch (error) {
     return error;
   }
+};
+
+const validateIsPlayerAndTeamAreLikend = (idPlayer, players, idTeam, teams) => {
+  let response = false;
+  if (teams.length > 0 && players.length > 0 && teams.includes(idTeam) && players.includes(idPlayer)) {
+    response = true;
+  }
+  return response;
 };
 
 module.exports = {
