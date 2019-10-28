@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const { createTeam, getTeams, getTeamByName, updateTeam } = require('./team.controller');
-const { hirePlayer } = require('../rulesBussines/rulesBusiness');
+const { hirePlayer } = require('../rulesBussines/rulesBusiness.controllers');
 
 app.get('/team', async (req, res) => {
   const teams = await getTeams();

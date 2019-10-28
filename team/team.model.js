@@ -23,12 +23,7 @@ let userShema = new Schema({
     required: [true, 'phone is necesary'],
     unique: true
   },
-  players: [
-    {
-      id: String,
-      username: String
-    }
-  ]
+  players: []
 });
 
 module.exports = mongoose.model('teams', userShema);
