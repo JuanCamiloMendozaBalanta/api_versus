@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const { createPlayer, getPlayers, getPlayersByEmail, updatePlayer } = require('./player.controller');
+const { createPlayer, getPlayers, getPlayerByEmail, updatePlayer } = require('./player.controller');
 
 app.get('/player', async (req, res) => {
   const players = await getPlayers();
@@ -14,7 +14,7 @@ app.get('/player', async (req, res) => {
 
 app.get('/player/:email', async (req, res) => {
   const { email } = req.params;
-  const player = await getPlayersByEmail(email);
+  const player = await getPlayerByEmail(email);
   if (player.id) {
     res.status(200).json(player);
   } else {

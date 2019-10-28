@@ -46,9 +46,25 @@ const updateTeam = async (id, info) => {
   }
 };
 
+const addPlayerToTeam = async (id, info) => {
+  let response;
+  try {
+    const update = await editTeam(id, info);
+    if (update.ok) {
+      return (response = await findTeamById(id));
+    } else {
+      response = `Error try to update the team with id: ${id}, meaby the team doesn't exist`;
+    }
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   createTeam,
   getTeams,
   getTeamByName,
-  updateTeam
+  updateTeam,
+  addPlayerToTeam
 };

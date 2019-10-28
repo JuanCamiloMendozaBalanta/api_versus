@@ -32,7 +32,7 @@ const getPlayers = async () => {
   }
 };
 
-const getPlayersByEmail = async email => {
+const getPlayerByEmail = async email => {
   try {
     return await findPlayerByEmail(email);
   } catch (error) {
@@ -60,9 +60,25 @@ const updatePlayer = async (id, info) => {
   }
 };
 
+const addTeamToPlayer = async (id, info) => {
+  let response;
+  try {
+    const update = await editPlayer(id, info);
+    if (update.ok) {
+      return (response = await findPlayerById(id));
+    } else {
+      response = `Error try to update the user with id: ${id}, meaby the user doesn't exist`;
+    }
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   createPlayer,
   getPlayers,
-  getPlayersByEmail,
-  updatePlayer
+  getPlayerByEmail,
+  updatePlayer,
+  addTeamToPlayer
 };
