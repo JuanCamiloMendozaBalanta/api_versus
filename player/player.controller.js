@@ -1,20 +1,15 @@
 const { editPlayer, findPlayers, findPlayerByEmail, findPlayerById, savePlayer } = require('./player.services');
 const { getRolesByCode } = require('../role/role.controller');
 const { objectIsEmpty, removeEmptyOrNull } = require('../utils/gadgets');
+const bcrypt = require('bcrypt');
 
 const createPlayer = async info => {
   try {
     let response;
-    const { email, role } = info;
-    const _role = getRolesByCode(role);
-    if (_role) {
-      const user = await findPlayerByEmail(email);
-      if (!user) {
-        const newUser = await savePlayer(info);
-        response = newUser;
-      } else {
-        response = `The user with the email ${email} already exist`;
-      }
+    if (getRolesByCode(info.role)) {
+      info.password = bcrypt.hashSync(info.password, 10);
+      const newUser = await savePlayer(info);
+      response = newUser;
     } else {
       response = `The role ${role} doesnt's exist`;
     }
@@ -44,8 +39,8 @@ const updatePlayer = async (id, info) => {
   let response;
   try {
     const cleanInfo = removeEmptyOrNull(info);
-    const update = await editPlayer(id, cleanInfo);
     if (!objectIsEmpty(cleanInfo)) {
+      const update = await editPlayer(id, cleanInfo);
       if (update.ok) {
         return (response = await findPlayerById(id));
       } else {
@@ -75,6 +70,7 @@ const addTeamToPlayer = async (id, info) => {
   }
 };
 
+const playerHaveRole = () => {};
 module.exports = {
   createPlayer,
   getPlayers,

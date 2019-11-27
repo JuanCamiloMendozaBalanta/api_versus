@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 const Team = require('../team/team.model');
+const Role = require('../role/role.model');
 
 let playerShema = new Schema({
   active: {
@@ -50,11 +51,13 @@ let playerShema = new Schema({
     maxLength: 15,
     trim: true
   },
-  role: {
-    type: String,
-    required: [true, 'role is necesary'],
-    trim: true
-  },
+  role: [
+    {
+      type: Schema.ObjectId,
+      required: [true, 'role is necesary'],
+      ref: Role
+    }
+  ],
   teams: [{ type: Schema.ObjectId, ref: Team }]
 });
 

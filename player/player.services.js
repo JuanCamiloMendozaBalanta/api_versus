@@ -28,7 +28,7 @@ const savePlayer = async info => {
   try {
     const {
       active,
-      dateOfBirth,
+      dateOfBirth = dateOfBirth ? dateOfBirth : '',
       email,
       google = google ? google : false,
       lastname,

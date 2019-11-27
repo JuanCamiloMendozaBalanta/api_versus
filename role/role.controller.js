@@ -1,31 +1,52 @@
-const { ROLES } = require('../utils/constants');
-const { manageError } = require('../utils/errors');
+const { editRole, findRoleByCode, findRoleById, findRoles, saveRole } = require('./role.services');
 
-const getRoles = () => {
+const createRole = async info => {
   try {
-    let response = ROLES.length > 0 ? ROLES : [];
-    return response;
+    return await saveRole(info);
   } catch (error) {
-    manageError(error);
     return error;
   }
 };
 
-const getRolesByCode = code => {
+const getRoles = async () => {
   try {
-    let response;
-    if (ROLES.length > 0) {
-      const role = ROLES.find(ele => ele.code === code);
-      response = role ? role : null;
+    return await findRoles();
+  } catch (error) {
+    return error;
+  }
+};
+
+const getRolesByCode = async code => {
+  try {
+    return await findRoleByCode(code);
+  } catch (error) {
+    return error;
+  }
+};
+
+const updateRole = async (id, info) => {
+  let response;
+  try {
+    const cleanInfo = removeEmptyOrNull(info);
+    if (!objectIsEmpty(cleanInfo)) {
+      const update = await editRole(id, cleanInfo);
+      if (update.ok) {
+        return (response = await findRoleById(id));
+      } else {
+        response = `Error try to update the role with id: ${id}, meaby the role doesn't exist`;
+      }
+    } else {
+      response = `The parameters to update the role can't be empty`;
     }
     return response;
   } catch (error) {
-    manageError(error);
     return error;
   }
 };
 
 module.exports = {
+  createRole,
+  updateRole,
   getRoles,
   getRolesByCode
 };
