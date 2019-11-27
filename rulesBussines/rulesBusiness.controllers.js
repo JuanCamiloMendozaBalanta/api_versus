@@ -13,7 +13,7 @@ const hirePlayer = async (idPlayer, idTeam) => {
     let newPlayers = myTeam.players;
 
     if (validateIsPlayerAndTeamAreLikend(idPlayer, newPlayers, idTeam, newTeams)) {
-      response = `Team ${idTeam} and player ${idPlayer} already be linked`;
+      response = `Team ${myTeam.name} and player ${myPlayer.name} already be linked`;
     } else {
       newTeams.push(idTeam);
       const player = await addTeamToPlayer(idPlayer, { teams: newTeams });
