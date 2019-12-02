@@ -70,7 +70,6 @@ const addTeamToPlayer = async (id, info) => {
   }
 };
 
-const playerHaveRole = () => {};
 module.exports = {
   createPlayer,
   getPlayers,

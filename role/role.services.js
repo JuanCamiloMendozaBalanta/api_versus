@@ -26,8 +26,8 @@ const findRoles = async () => {
 
 const saveRole = async info => {
   try {
-    const { code, name } = info;
-    const newRole = new Role({ code, name });
+    const { active, code, name } = info;
+    const newRole = new Role({ active, code, name });
     const role = await newRole.save();
     return role;
   } catch (error) {

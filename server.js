@@ -9,10 +9,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(require('./role/role.routes'));
+app.use(require('./location/location.routes'));
 app.use(require('./player/player.routes'));
-app.use(require('./team/team.routes'));
+app.use(require('./role/role.routes'));
 app.use(require('./rulesBussines/rulesBusiness.routes'));
+app.use(require('./team/team.routes'));
 
 const db = `mongodb://${host}:${db_port}/${shema}`;
 
