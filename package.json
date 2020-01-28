@@ -6,6 +6,7 @@
   "scripts": {
     "test": "export NODE_ENV=test && jest --forceExit --detectOpenHandles --coverage",
     "test:watch": "npm run test -- --coverage --watchAll",
+    "start": "server.js",
     "dev": "nodemon server.js"
   },
   "repository": {
