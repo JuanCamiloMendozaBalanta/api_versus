@@ -2,7 +2,7 @@
 FROM node:10
 
 # Bundle app source
-COPY . .
+COPY ./ ./
 
 # Install some dependencies
 RUN npm install
