@@ -1,6 +1,9 @@
 #Specify a base image
 FROM node:10
 
+# Create app directory
+WORKDIR /usr/src/versus
+
 # Bundle app source
 COPY ./ ./
 
