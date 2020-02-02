@@ -6,7 +6,9 @@ const bcrypt = require('bcrypt');
 const createPlayer = async info => {
   try {
     let response;
-    if (getRolesByCode(info.role)) {
+    const {role} = info
+    const findRole = await getRolesByCode(role);
+    if (findRole) {
       info.password = bcrypt.hashSync(info.password, 10);
       const newUser = await savePlayer(info);
       response = newUser;
