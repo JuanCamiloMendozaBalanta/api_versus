@@ -1,7 +1,7 @@
 const { addTeamToPlayer } = require('../player/player.controller');
 const { findPlayerById } = require('../player/player.services');
-const { addPlayerToTeam } = require('../../team/team.controller');
-const { findTeamById } = require('../../team/team.services');
+const { addPlayerToTeam } = require('../team/team.controller');
+const { findTeamById } = require('../team/team.services');
 
 const hirePlayer = async (idPlayer, idTeam) => {
   try {

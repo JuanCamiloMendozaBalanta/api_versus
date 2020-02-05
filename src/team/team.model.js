@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
 
-const Player = require('./player/player.model');
+const Player = require('../player/player.model');
 
 let userShema = new Schema({
   active: {
