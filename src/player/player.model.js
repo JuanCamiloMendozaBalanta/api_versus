@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
 
-const Team = require('../team/team.model');
+const Team = require('../../team/team.model');
 const Role = require('../role/role.model');
 
 let playerShema = new Schema({
