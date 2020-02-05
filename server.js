@@ -14,6 +14,8 @@ app.use(require('./src/player/player.routes'));
 app.use(require('./src/role/role.routes'));
 app.use(require('./src/rulesBussines/rulesBusiness.routes'));
 app.use(require('./src/team/team.routes'));
+app.use(require('./src/login/login.routes'));
+
 
 const db = `mongodb://${host}:${db_port}/${shema}`;
 

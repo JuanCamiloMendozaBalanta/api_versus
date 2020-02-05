@@ -27,10 +27,9 @@ let playerShema = new Schema({
     required: [true, 'lastname is necesary'],
     trim: true
   },
-  name: {
+  firstname: {
     type: String,
-    required: [true, 'name is necesary'],
-    maxLength: 15,
+    required: [true, 'firstname is necesary'],
     trim: true
   },
   password: {
