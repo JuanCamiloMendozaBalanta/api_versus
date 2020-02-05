@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 const removeEmptyOrNull = obj => {
   Object.keys(obj).forEach(
     k =>
@@ -11,6 +13,11 @@ const objectIsEmpty = obj => {
   return Object.keys(obj).length === 0;
 };
 
+const generateToken = player => {
+  const token = jwt.sign({
+    user: player
+  });
+};
 module.exports = {
   objectIsEmpty,
   removeEmptyOrNull

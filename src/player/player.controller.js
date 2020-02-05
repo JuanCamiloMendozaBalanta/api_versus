@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const createPlayer = async info => {
   try {
     let response;
-    const {role} = info
+    const { role } = info;
     const findRole = await getRolesByCode(role);
     if (findRole) {
       info.password = bcrypt.hashSync(info.password, 10);
@@ -72,10 +72,14 @@ const addTeamToPlayer = async (id, info) => {
   }
 };
 
+const passwordOk = (passwordOne, passwordTwo) => {
+  return bcrypt.compareSync(passwordOne, passwordTwo);
+};
 module.exports = {
   createPlayer,
   getPlayers,
   getPlayerByEmail,
   updatePlayer,
-  addTeamToPlayer
+  addTeamToPlayer,
+  passwordOk
 };
