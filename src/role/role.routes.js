@@ -2,13 +2,14 @@ const express = require('express');
 const app = express();
 const { createRole, getRoles, getRolesByCode, updateRole } = require('./role.controller');
 
-app.get('/role', (req, res) => {
-  res.status(200).json(getRoles());
+app.get('/role', async (req, res) => {
+  const roles = await getRoles();
+  res.status(200).json(roles);
 });
 
-app.get('/role/:code', (req, res) => {
+app.get('/role/:code', async (req, res) => {
   const { code } = req.params;
-  const role = getRolesByCode(code);
+  const role = await getRolesByCode(code);
   if (role) {
     res.status(200).json(role);
   } else {
