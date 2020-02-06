@@ -18,7 +18,7 @@ const findRoleById = async id => {
 
 const findRoles = async () => {
   try {
-    return await Role.find({ active: true });
+    return await Role.find();
   } catch (error) {
     return error;
   }

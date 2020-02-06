@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const { port, shema, host, db_port } = require('./configuration/config');
+const { port, generateUrlDB } = require('./configuration/config');
 
 const app = express();
 
@@ -16,8 +16,7 @@ app.use(require('./src/rulesBussines/rulesBusiness.routes'));
 app.use(require('./src/team/team.routes'));
 app.use(require('./src/login/login.routes'));
 
-
-const db = `mongodb://${host}:${db_port}/${shema}`;
+const db = generateUrlDB();
 
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
