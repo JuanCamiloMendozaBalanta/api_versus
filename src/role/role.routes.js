@@ -13,7 +13,8 @@ app.get('/role/:code', async (req, res) => {
   if (role) {
     res.status(200).json(role);
   } else {
-    res.status(404).json(role);
+    const messages = `Role with code ${code} not found`;
+    res.status(404).json(messages);
   }
 });
 

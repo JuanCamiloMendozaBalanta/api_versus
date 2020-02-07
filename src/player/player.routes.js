@@ -15,10 +15,11 @@ app.get('/player', async (req, res) => {
 app.get('/player/:email', async (req, res) => {
   const { email } = req.params;
   const player = await getPlayerByEmail(email);
-  if (player.id) {
+  if (player && player.id) {
     res.status(200).json(player);
   } else {
-    res.status(404).json(player);
+    const messages = `Player with email ${email} not found`;
+    res.status(404).json(messages);
   }
 });
 

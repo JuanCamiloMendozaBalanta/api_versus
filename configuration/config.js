@@ -15,7 +15,7 @@ const generateUrlDB = () => {
   if (environment === 'DEV') {
     url = `mongodb://${host}:${db_port}/${shema}`;
   } else {
-    url = `mongodb+srv://${db_user}:${db_password}@versus-om9g3.mongodb.net/test`;
+    url = `mongodb+srv://${db_user}:${db_password}@versus-om9g3.mongodb.net/test?retryWrites=true&w=majority`;
   }
   return url;
 };
