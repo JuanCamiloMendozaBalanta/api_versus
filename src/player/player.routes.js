@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 
 const { createPlayer, getPlayers, getPlayerByEmail, updatePlayer } = require('./player.controller');
-
-app.get('/player', async (req, res) => {
+const { verificationToken } = require('../middlewares/auth');
+app.get('/player', verificationToken, async (req, res) => {
   const players = await getPlayers();
   if (players) {
     res.status(200).json(players);
