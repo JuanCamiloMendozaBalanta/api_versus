@@ -13,19 +13,16 @@ app.post('/login', async (req, res) => {
     const player = await getPlayerByEmail(email);
     if (player) {
       if (passwordOk(password, player.password)) {
-        const token = generateToken();
+        const { email, username, roles, teams } = player;
+        const user = {
+          email,
+          username,
+          roles,
+          teams
+        };
+        const token = generateToken(user);
         if (token) {
-          const { email, username, roles, teams } = player;
-          const data = {
-            user: {
-              email,
-              username,
-              roles,
-              teams
-            },
-            token
-          };
-          res.status(200).json(data);
+          res.status(200).json(token);
         } else {
           res.status(500).json(`Something fail with the token`);
         }
