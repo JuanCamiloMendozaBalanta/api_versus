@@ -50,9 +50,9 @@ let playerShema = new Schema({
     maxLength: 15,
     trim: true
   },
-  role: [
+  roles: [
     {
-      type:String,
+      type: String,
       required: [true, 'role is necesary'],
       ref: Role
     }

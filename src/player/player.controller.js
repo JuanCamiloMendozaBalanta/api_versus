@@ -1,13 +1,13 @@
 const { editPlayer, findPlayers, findPlayerByEmail, findPlayerById, savePlayer } = require('./player.services');
-const { getRolesByCode } = require('../role/role.controller');
+const { getRoleByCode } = require('../role/role.controller');
 const { objectIsEmpty, removeEmptyOrNull } = require('../utils/gadgets');
 const bcrypt = require('bcrypt');
 
 const createPlayer = async info => {
   try {
     let response;
-    const { role } = info;
-    const findRole = await getRolesByCode(role);
+    const { roles } = info;
+    const findRole = await getRoleByCode(roles);
     if (findRole) {
       info.password = bcrypt.hashSync(info.password, 10);
       const newUser = await savePlayer(info);

@@ -36,7 +36,7 @@ const savePlayer = async info => {
       password,
       phone,
       username,
-      role,
+      roles,
       teams = teams ? teams : []
     } = info;
     const newPlayer = new Player({
@@ -49,7 +49,7 @@ const savePlayer = async info => {
       password,
       phone,
       username,
-      role,
+      roles,
       teams
     });
     const player = await newPlayer.save();

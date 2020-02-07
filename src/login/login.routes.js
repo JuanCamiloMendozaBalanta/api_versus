@@ -3,6 +3,7 @@ const app = express();
 
 const { getPlayerByEmail, passwordOk } = require('../player/player.controller');
 const { missingParameters } = require('../utils/errors');
+const { generateToken } = require('./login.controller');
 
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -12,7 +13,22 @@ app.post('/login', async (req, res) => {
     const player = await getPlayerByEmail(email);
     if (player) {
       if (passwordOk(password, player.password)) {
-        res.status(200).json(player);
+        const token = generateToken();
+        if (token) {
+          const { email, username, roles, teams } = player;
+          const data = {
+            user: {
+              email,
+              username,
+              roles,
+              teams
+            },
+            token
+          };
+          res.status(200).json(data);
+        } else {
+          res.status(500).json(`Something fail with the token`);
+        }
       } else {
         res.status(400).json(`Incorret password`);
       }

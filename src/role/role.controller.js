@@ -17,7 +17,7 @@ const getRoles = async () => {
   }
 };
 
-const getRolesByCode = async code => {
+const getRoleByCode = async code => {
   try {
     return await findRoleByCode(code);
   } catch (error) {
@@ -49,5 +49,5 @@ module.exports = {
   createRole,
   updateRole,
   getRoles,
-  getRolesByCode
+  getRoleByCode
 };

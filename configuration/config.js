@@ -9,6 +9,7 @@ const jwt_expiration = 60 * 60 * 24;
 const port = process.env.PORT || 8081;
 const db_user = process.env.DB_USER;
 const db_password = process.env.DB_PASSWORD;
+const seed = process.env.SEED;
 
 const generateUrlDB = () => {
   let url;
@@ -27,7 +28,8 @@ const config = {
   db_port,
   environment,
   jwt_expiration,
-  generateUrlDB
+  generateUrlDB,
+  seed
 };
 
 module.exports = config;
