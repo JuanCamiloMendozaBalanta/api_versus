@@ -46,7 +46,7 @@ const updateTeam = async (id, info) => {
   }
 };
 
-const addPlayerToTeam = async (id, info) => {
+const addUserToTeam = async (id, info) => {
   let response;
   try {
     const update = await editTeam(id, info);
@@ -66,5 +66,5 @@ module.exports = {
   getTeams,
   getTeamByName,
   updateTeam,
-  addPlayerToTeam
+  addUserToTeam
 };

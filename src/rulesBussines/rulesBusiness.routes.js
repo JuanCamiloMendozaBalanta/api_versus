@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
 
-const { hirePlayer } = require('./rulesBusiness.controllers');
+const { hireUser } = require('./rulesBusiness.controllers');
 
-app.put('/hirePlayer', async (req, res) => {
-  const { idPlayer, idTeam } = req.body;
-  const response = await hirePlayer(idPlayer, idTeam);
-  if (response && response.player && response.team) {
+app.put('/hireUser', async (req, res) => {
+  const { idUser, idTeam } = req.body;
+  const response = await hireUser(idUser, idTeam);
+  if (response && response.user && response.team) {
     res.status(200).json(response);
   } else {
     res.status(500).json(response);

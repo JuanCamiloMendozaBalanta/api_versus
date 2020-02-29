@@ -1,13 +1,14 @@
 const express = require('express');
 const app = express();
 const { createRole, getRoles, getRoleByCode, updateRole } = require('./role.controller');
+const { verificationToken } = require('../middlewares/auth');
 
-app.get('/role', async (req, res) => {
+app.get('/role', verificationToken, async (req, res) => {
   const roles = await getRoles();
   res.status(200).json(roles);
 });
 
-app.get('/role/:code', async (req, res) => {
+app.get('/role/:code', verificationToken, async (req, res) => {
   const { code } = req.params;
   const role = await getRoleByCode(code);
   if (role) {
@@ -18,7 +19,7 @@ app.get('/role/:code', async (req, res) => {
   }
 });
 
-app.post('/role', async (req, res) => {
+app.post('/role', verificationToken, async (req, res) => {
   const role = await createRole(req.body);
   if (role && role.id) {
     res.status(200).json(role);
@@ -27,13 +28,13 @@ app.post('/role', async (req, res) => {
   }
 });
 
-app.put('/role/:id', async (req, res) => {
+app.put('/role/:id', verificationToken, async (req, res) => {
   const { id } = req.params;
-  const player = await updateRole(id, req.body);
-  if (player && player.id) {
-    res.status(200).json(player);
+  const role = await updateRole(id, req.body);
+  if (role && role.id) {
+    res.status(200).json(role);
   } else {
-    res.status(500).json(player);
+    res.status(500).json(role);
   }
 });
 

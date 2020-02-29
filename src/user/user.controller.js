@@ -1,16 +1,16 @@
-const { editPlayer, findPlayers, findPlayerByEmail, findPlayerById, savePlayer } = require('./player.services');
+const { editUser, findUsers, findUserByEmail, findUserById, saveUser } = require('./user.services');
 const { getRoleByCode } = require('../role/role.controller');
 const { objectIsEmpty, removeEmptyOrNull } = require('../utils/gadgets');
 const bcrypt = require('bcrypt');
 
-const createPlayer = async info => {
+const createUser = async info => {
   try {
     let response;
     const { roles } = info;
     const findRole = await getRoleByCode(roles);
     if (findRole) {
       info.password = bcrypt.hashSync(info.password, 10);
-      const newUser = await savePlayer(info);
+      const newUser = await saveUser(info);
       response = newUser;
     } else {
       response = `The role ${role} doesnt's exist`;
@@ -21,30 +21,30 @@ const createPlayer = async info => {
   }
 };
 
-const getPlayers = async () => {
+const getUsers = async () => {
   try {
-    return await findPlayers();
+    return await findUsers();
   } catch (error) {
     return error;
   }
 };
 
-const getPlayerByEmail = async email => {
+const getUserByEmail = async email => {
   try {
-    return await findPlayerByEmail(email);
+    return await findUserByEmail(email);
   } catch (error) {
     return error;
   }
 };
 
-const updatePlayer = async (id, info) => {
+const updateUser = async (id, info) => {
   let response;
   try {
     const cleanInfo = removeEmptyOrNull(info);
     if (!objectIsEmpty(cleanInfo)) {
-      const update = await editPlayer(id, cleanInfo);
+      const update = await editUser(id, cleanInfo);
       if (update.ok) {
-        return (response = await findPlayerById(id));
+        return (response = await findUserById(id));
       } else {
         response = `Error try to update the user with id: ${id}, meaby the user doesn't exist`;
       }
@@ -57,12 +57,12 @@ const updatePlayer = async (id, info) => {
   }
 };
 
-const addTeamToPlayer = async (id, info) => {
+const addTeamToUser = async (id, info) => {
   let response;
   try {
-    const update = await editPlayer(id, info);
+    const update = await editUser(id, info);
     if (update.ok) {
-      return (response = await findPlayerById(id));
+      return (response = await findUserById(id));
     } else {
       response = `Error try to update the user with id: ${id}, meaby the user doesn't exist`;
     }
@@ -76,10 +76,10 @@ const passwordOk = (passwordOne, passwordTwo) => {
   return bcrypt.compareSync(passwordOne, passwordTwo);
 };
 module.exports = {
-  createPlayer,
-  getPlayers,
-  getPlayerByEmail,
-  updatePlayer,
-  addTeamToPlayer,
+  createUser,
+  getUsers,
+  getUserByEmail,
+  updateUser,
+  addTeamToUser,
   passwordOk
 };

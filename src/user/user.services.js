@@ -1,30 +1,30 @@
-const Player = require('./player.model');
+const User = require('./user.model');
 
-const findPlayerByEmail = async email => {
+const findUserByEmail = async email => {
   try {
-    return await Player.findOne({ email });
+    return await User.findOne({ email });
   } catch (error) {
     return error;
   }
 };
 
-const findPlayerById = async id => {
+const findUserById = async id => {
   try {
-    return await Player.findOne({ _id: id });
+    return await User.findOne({ _id: id });
   } catch (error) {
     return error;
   }
 };
 
-const findPlayers = async () => {
+const findUsers = async () => {
   try {
-    return await Player.find({ active: true });
+    return await User.find({ active: true });
   } catch (error) {
     return error;
   }
 };
 
-const savePlayer = async info => {
+const saveUser = async info => {
   try {
     const {
       active,
@@ -39,7 +39,7 @@ const savePlayer = async info => {
       roles,
       teams = teams ? teams : []
     } = info;
-    const newPlayer = new Player({
+    const newUser = new User({
       active,
       dateOfBirth,
       email,
@@ -52,16 +52,16 @@ const savePlayer = async info => {
       roles,
       teams
     });
-    const player = await newPlayer.save();
-    return player;
+    const user = await newUser.save();
+    return user;
   } catch (error) {
     return error;
   }
 };
 
-const editPlayer = async (id, info) => {
+const editUser = async (id, info) => {
   try {
-    const response = await Player.updateOne({ _id: id }, { $set: info });
+    const response = await User.updateOne({ _id: id }, { $set: info });
     return response;
   } catch (error) {
     return error;
@@ -69,9 +69,9 @@ const editPlayer = async (id, info) => {
 };
 
 module.exports = {
-  editPlayer,
-  findPlayers,
-  findPlayerByEmail,
-  findPlayerById,
-  savePlayer
+  editUser,
+  findUsers,
+  findUserByEmail,
+  findUserById,
+  saveUser
 };

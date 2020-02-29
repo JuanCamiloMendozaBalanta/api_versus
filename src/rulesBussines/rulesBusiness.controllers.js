@@ -1,33 +1,33 @@
-const { addTeamToPlayer } = require('../player/player.controller');
-const { findPlayerById } = require('../player/player.services');
-const { addPlayerToTeam } = require('../team/team.controller');
+const { addTeamToUser } = require('../user/user.controller');
+const { findUserById } = require('../user/user.services');
+const { addUserToTeam } = require('../team/team.controller');
 const { findTeamById } = require('../team/team.services');
 
-const hirePlayer = async (idPlayer, idTeam) => {
+const hireUser = async (idUser, idTeam) => {
   try {
     let response;
-    const myPlayer = await findPlayerById(idPlayer);
-    let newTeams = myPlayer.teams;
+    const myUser = await findUserById(idUser);
+    let newTeams = myUser.teams;
 
     const myTeam = await findTeamById(idTeam);
-    let newPlayers = myTeam.players;
+    let newUsers = myTeam.Users;
 
-    if (validateIsPlayerAndTeamAreLikend(idPlayer, newPlayers, idTeam, newTeams)) {
-      response = `Team ${myTeam.name} and player ${myPlayer.name} already be linked`;
+    if (validateIsUserAndTeamAreLikend(idUser, newUsers, idTeam, newTeams)) {
+      response = `Team ${myTeam.name} and User ${myUser.name} already be linked`;
     } else {
       newTeams.push(idTeam);
-      const player = await addTeamToPlayer(idPlayer, { teams: newTeams });
+      const User = await addTeamToUser(idUser, { teams: newTeams });
 
-      newPlayers.push(idPlayer);
-      const team = await addPlayerToTeam(idTeam, { players: newPlayers });
+      newUsers.push(idUser);
+      const team = await addUserToTeam(idTeam, { Users: newUsers });
 
-      if (player && team) {
+      if (User && team) {
         response = {
-          player,
+          User,
           team
         };
       } else {
-        response = `Something is wrong please check the info to the player: ${idPlayer} and the team: ${idTeam}`;
+        response = `Something is wrong please check the info to the User: ${idUser} and the team: ${idTeam}`;
       }
     }
 
@@ -37,14 +37,14 @@ const hirePlayer = async (idPlayer, idTeam) => {
   }
 };
 
-const validateIsPlayerAndTeamAreLikend = (idPlayer, players, idTeam, teams) => {
+const validateIsUserAndTeamAreLikend = (idUser, Users, idTeam, teams) => {
   let response = false;
-  if (teams.length > 0 && players.length > 0 && teams.includes(idTeam) && players.includes(idPlayer)) {
+  if (teams.length > 0 && Users.length > 0 && teams.includes(idTeam) && Users.includes(idUser)) {
     response = true;
   }
   return response;
 };
 
 module.exports = {
-  hirePlayer
+  hireUser
 };

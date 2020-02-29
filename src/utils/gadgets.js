@@ -13,11 +13,6 @@ const objectIsEmpty = obj => {
   return Object.keys(obj).length === 0;
 };
 
-const generateToken = player => {
-  const token = jwt.sign({
-    user: player
-  });
-};
 module.exports = {
   objectIsEmpty,
   removeEmptyOrNull

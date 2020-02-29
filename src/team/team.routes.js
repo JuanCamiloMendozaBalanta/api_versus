@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const { createTeam, getTeams, getTeamByName, updateTeam } = require('./team.controller');
-const { hirePlayer } = require('../rulesBussines/rulesBusiness.controllers');
+const { hireUser } = require('../rulesBussines/rulesBusiness.controllers');
 
 app.get('/team', async (req, res) => {
   const teams = await getTeams();
@@ -42,9 +42,9 @@ app.put('/team/:id', async (req, res) => {
   }
 });
 
-app.put('/team/hirePlayer', async (req, res) => {
-  const { idPlayer, idTeam } = req.body;
-  const response = await hirePlayer(idPlayer, idTeam);
+app.put('/team/hireUser', async (req, res) => {
+  const { idUser, idTeam } = req.body;
+  const response = await hireUser(idUser, idTeam);
   if (response) {
     res.status(200).json(response);
   } else {

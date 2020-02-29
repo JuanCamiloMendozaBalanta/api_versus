@@ -27,11 +27,11 @@ app.post('/location', async (req, res) => {
 
 app.put('/location/:id', async (req, res) => {
   const { id } = req.params;
-  const player = await updateLocation(id, req.body);
-  if (player && player.id) {
-    res.status(200).json(player);
+  const location = await updateLocation(id, req.body);
+  if (location && location.id) {
+    res.status(200).json(location);
   } else {
-    res.status(500).json(player);
+    res.status(500).json(location);
   }
 });
 

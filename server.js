@@ -1,16 +1,18 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const { port, generateUrlDB } = require('./configuration/config');
-
 const app = express();
+app.use(cors());
+
+const { port, generateUrlDB } = require('./configuration/config');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(require('./src/location/location.routes'));
-app.use(require('./src/player/player.routes'));
+app.use(require('./src/user/user.routes'));
 app.use(require('./src/role/role.routes'));
 app.use(require('./src/rulesBussines/rulesBusiness.routes'));
 app.use(require('./src/team/team.routes'));

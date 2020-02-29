@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const { getPlayerByEmail, passwordOk } = require('../player/player.controller');
+const { getUserByEmail, passwordOk } = require('../user/user.controller');
 const { missingParameters } = require('../utils/errors');
 const { generateToken } = require('./login.controller');
 
@@ -10,19 +10,17 @@ app.post('/login', async (req, res) => {
   if (!email || !password) {
     res.status(400).json(missingParameters({ email, password }));
   } else {
-    const player = await getPlayerByEmail(email);
-    if (player) {
-      if (passwordOk(password, player.password)) {
-        const { email, username, roles, teams } = player;
-        const user = {
-          email,
-          username,
-          roles,
-          teams
-        };
-        const token = generateToken(user);
+    const user = await getUserByEmail(email);
+    if (user) {
+      if (passwordOk(password, user.password)) {
+        const { email, username } = user;
+        const token = generateToken({ email, username });
         if (token) {
-          res.status(200).json(token);
+          const data = {
+            user,
+            token
+          };
+          res.status(200).json(data);
         } else {
           res.status(500).json(`Something fail with the token`);
         }

@@ -26,13 +26,13 @@ const findTeams = async () => {
 
 const saveTeam = async info => {
   try {
-    const { active, from, name, phone, players = players ? players : [] } = info;
+    const { active, from, name, phone, users = users ? users : [] } = info;
     const newTeam = new Team({
       active,
       from,
       name,
       phone,
-      players
+      users
     });
     const team = await newTeam.save();
     return team;
