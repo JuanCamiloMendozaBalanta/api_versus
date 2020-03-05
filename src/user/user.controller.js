@@ -1,21 +1,12 @@
 const { editUser, findUsers, findUserByEmail, findUserById, saveUser } = require('./user.services');
-const { getRoleByCode } = require('../role/role.controller');
 const { objectIsEmpty, removeEmptyOrNull } = require('../utils/gadgets');
 const bcrypt = require('bcrypt');
 
 const createUser = async info => {
   try {
-    let response;
-    const { roles } = info;
-    const findRole = await getRoleByCode(roles);
-    if (findRole) {
-      info.password = bcrypt.hashSync(info.password, 10);
-      const newUser = await saveUser(info);
-      response = newUser;
-    } else {
-      response = `The role ${role} doesnt's exist`;
-    }
-    return response;
+    info.password = bcrypt.hashSync(info.password, 10);
+    const newUser = await saveUser(info);
+    return newUser;
   } catch (error) {
     return error;
   }

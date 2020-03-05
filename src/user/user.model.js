@@ -10,7 +10,7 @@ let userShema = new Schema({
     type: Boolean,
     required: [true, 'active is necesary']
   },
-  dateOfBirth: {
+  bornDate: {
     type: Date
   },
   email: {
@@ -53,7 +53,6 @@ let userShema = new Schema({
   roles: [
     {
       type: String,
-      required: [true, 'role is necesary'],
       ref: Role
     }
   ],

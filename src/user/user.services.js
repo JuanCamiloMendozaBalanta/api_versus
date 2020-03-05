@@ -26,31 +26,17 @@ const findUsers = async () => {
 
 const saveUser = async info => {
   try {
-    const {
-      active,
-      dateOfBirth = dateOfBirth ? dateOfBirth : '',
-      email,
-      google = google ? google : false,
-      lastname,
-      firstname,
-      password,
-      phone,
-      username,
-      roles,
-      teams = teams ? teams : []
-    } = info;
+    const { bornDate, email, lastname, firstname, password, phone, username } = info;
     const newUser = new User({
-      active,
-      dateOfBirth,
+      bornDate: bornDate ? bornDate : null,
+      active: true,
       email,
-      google,
+      google: false,
       lastname,
       firstname,
       password,
       phone,
-      username,
-      roles,
-      teams
+      username
     });
     const user = await newUser.save();
     return user;
