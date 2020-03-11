@@ -1,36 +1,50 @@
-const express = require('express');
-const app = express();
+const UserTeams = require('./userTeams.model');
 
-const { createUserRoles, getUserRolesByUser, updateUserRoles } = require('./userTeams.controller');
-
-const { verificationToken } = require('../middlewares/auth');
-
-app.get('/userroles/:id', verificationToken, async (req, res) => {
-  const users = await getUserRolesByUser(id);
-  if (users) {
-    res.status(200).json(users);
-  } else {
-    res.status(500).json(users);
+const findUserTeamsById = async id => {
+  try {
+    return await UserTeams.findOne({ _id: id });
+  } catch (error) {
+    return error;
   }
-});
+};
 
-app.post('/userroles', async (req, res) => {
-  const user = await createUserRoles(req.body);
-  if (user && user.id) {
-    res.status(200).json(user);
-  } else {
-    res.status(500).json(user);
+const findUserTeamsByUser = async user => {
+  try {
+    return await UserTeams.find({ active: true, user });
+  } catch (error) {
+    return error;
   }
-});
+};
 
-app.put('/userroles/:id', async (req, res) => {
-  const { id } = req.params;
-  const user = await updateUserRoles(id, req.body);
-  if (user && user.id) {
-    res.status(200).json(user);
-  } else {
-    res.status(500).json(user);
+const saveUserTeams = async info => {
+  try {
+    const { team, teamName, user, userName } = info;
+    const newUserTeams = new UserTeams({
+      active: true,
+      team,
+      teamName,
+      user,
+      userName
+    });
+    const userTeam = await newUserTeams.save();
+    return userTeam;
+  } catch (error) {
+    return error;
   }
-});
+};
 
-module.exports = app;
+const editUserTeams = async (id, info) => {
+  try {
+    const response = await UserTeams.updateOne({ _id: id }, { $set: info });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+module.exports = {
+  findUserTeamsById,
+  findUserTeamsByUser,
+  saveUserTeams,
+  editUserTeams
+};
