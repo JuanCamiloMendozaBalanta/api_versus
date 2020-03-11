@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
 
+const User = require('../user/user.model');
+
 let roleShema = new Schema({
   active: {
     type: Boolean,

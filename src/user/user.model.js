@@ -49,14 +49,7 @@ let userShema = new Schema({
     unique: true,
     maxLength: 15,
     trim: true
-  },
-  roles: [
-    {
-      type: String,
-      ref: Role
-    }
-  ],
-  teams: [{ type: String, ref: Team }]
+  }
 });
 
 module.exports = mongoose.model('users', userShema);

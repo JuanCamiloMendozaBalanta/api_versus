@@ -1,4 +1,6 @@
 const { editUser, findUsers, findUserByEmail, findUserById, saveUser } = require('./user.services');
+const { getUserRolesByUser } = require('../userRoles/userRoles.controller');
+const { getUserTeamsByUser } = require('../userTeams/userTeams.controller');
 const { objectIsEmpty, removeEmptyOrNull } = require('../utils/gadgets');
 const bcrypt = require('bcrypt');
 
@@ -6,7 +8,7 @@ const createUser = async info => {
   try {
     info.password = bcrypt.hashSync(info.password, 10);
     const newUser = await saveUser(info);
-    return newUser;
+    return { ...newUser, roles: [] };
   } catch (error) {
     return error;
   }
@@ -22,7 +24,12 @@ const getUsers = async () => {
 
 const getUserByEmail = async email => {
   try {
-    return await findUserByEmail(email);
+    const user = await findUserByEmail(email);
+    if (user) {
+      const userRoles = await getUserRolesByUser(user._id);
+      const userTeams = await getUserTeamsByUser(user._id);
+      return { ...user, roles: userRoles, teams: userTeams };
+    }
   } catch (error) {
     return error;
   }
