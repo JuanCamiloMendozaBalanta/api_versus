@@ -1,6 +1,6 @@
 const { editRole, findRoleByCode, findRoleById, findRoles, saveRole } = require('./role.services');
 const { objectIsEmpty, removeEmptyOrNull } = require('../utils/gadgets');
-
+const { getUserByEmail } = require('../user/user.controller');
 const createRole = async info => {
   try {
     return await saveRole(info);
@@ -9,9 +9,25 @@ const createRole = async info => {
   }
 };
 
-const getRoles = async () => {
+const getRolesByEmail = async email => {
   try {
-    return await findRoles();
+    const roles = await findRoles();
+    const user = await getUserByEmail(email);
+    const leftIntersection = roles.map(role => {
+      const { _id, active, code, name } = role;
+      const newRole = {
+        _id,
+        active,
+        code,
+        name,
+        iHaveIt: false
+      };
+      if (user.roles.includes(role.name)) {
+        newRole.iHaveIt = true;
+      }
+      return newRole;
+    });
+    return leftIntersection;
   } catch (error) {
     return error;
   }
@@ -48,6 +64,6 @@ const updateRole = async (id, info) => {
 module.exports = {
   createRole,
   updateRole,
-  getRoles,
+  getRolesByEmail,
   getRoleByCode
 };

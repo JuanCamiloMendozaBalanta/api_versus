@@ -1,11 +1,10 @@
 const jwt = require('jsonwebtoken');
 
 const removeEmptyOrNull = obj => {
-  Object.keys(obj).forEach(
-    k =>
-      (obj[k] && typeof obj[k] === 'object' && removeEmptyOrNull(obj[k])) ||
-      (!obj[k] && obj[k] !== undefined && delete obj[k])
-  );
+  Object.keys(obj).forEach(key => {
+    if (obj[key] && typeof obj[key] === 'object') removeEmpty(obj[key]);
+    else if (obj[key] === '' || obj[key] === undefined || obj[key] === 'undefined') delete obj[key];
+  });
   return obj;
 };
 

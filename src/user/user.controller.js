@@ -26,9 +26,24 @@ const getUserByEmail = async email => {
   try {
     const user = await findUserByEmail(email);
     if (user) {
+      const { _id, bornDate, active, email, google, lastname, firstname, password, phone, username } = user;
       const userRoles = await getUserRolesByUser(user._id);
       const userTeams = await getUserTeamsByUser(user._id);
-      return { ...user, roles: userRoles, teams: userTeams };
+      const response = {
+        _id,
+        bornDate,
+        active,
+        email,
+        google,
+        lastname,
+        firstname,
+        password,
+        phone,
+        username,
+        roles: userRoles,
+        teams: userTeams
+      };
+      return response;
     }
   } catch (error) {
     return error;

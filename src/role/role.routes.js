@@ -1,20 +1,27 @@
 const express = require('express');
 const app = express();
-const { createRole, getRoles, getRoleByCode, updateRole } = require('./role.controller');
+const { createRole, getRolesByEmail, getRoleByCode, updateRole } = require('./role.controller');
 const { verificationToken } = require('../middlewares/auth');
+const { removeEmptyOrNull } = require('../utils/gadgets');
 
 app.get('/role', verificationToken, async (req, res) => {
-  const roles = await getRoles();
-  res.status(200).json(roles);
-});
-
-app.get('/role/:code', verificationToken, async (req, res) => {
-  const { code } = req.params;
-  const role = await getRoleByCode(code);
-  if (role) {
-    res.status(200).json(role);
+  let { email, code } = req.query;
+  const objectFormart = removeEmptyOrNull({ email, code });
+  email = objectFormart.email;
+  code = objectFormart.code;
+  let roles = null;
+  let search = null;
+  if (code && !email) {
+    roles = await getRoleByCode(code);
+    search = 'code';
+  } else if (email) {
+    roles = await getRolesByEmail(email);
+    search = 'email';
+  }
+  if (roles) {
+    res.status(200).json(roles);
   } else {
-    const messages = `Role with code ${code} not found`;
+    const messages = `Role with ${search} ${code ? code : email} not found`;
     res.status(404).json(messages);
   }
 });
