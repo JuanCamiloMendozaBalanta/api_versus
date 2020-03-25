@@ -12,17 +12,19 @@ let userRoleShema = new Schema({
   },
   role: {
     type: String,
-    ref: Role
-  },
-  roleName: {
-    type: String
+    ref: Role,
+    required: [true, 'role is necesary']
   },
   user: {
     type: String,
-    ref: User
+    ref: User,
+    required: [true, 'user is necesary']
   },
-  userName: {
-    type: String
+  qualification: {
+    type: Number,
+    required: [true, 'qualification is necesary'],
+    min: 0,
+    max: 100
   }
 });
 

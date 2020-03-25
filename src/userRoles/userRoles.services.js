@@ -18,13 +18,12 @@ const findUserRolesByUser = async user => {
 
 const saveUserRoles = async info => {
   try {
-    const { role, roleName, user, userName } = info;
+    const { role, user, qualification } = info;
     const newUserRoles = new UserRoles({
       active: true,
       role,
-      roleName,
       user,
-      userName
+      qualification
     });
     const userRole = await newUserRoles.save();
     return userRole;
